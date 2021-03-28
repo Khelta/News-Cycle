@@ -1,12 +1,15 @@
 import { Component, NgModule } from '@angular/core';
+import {GraphService} from './graph.service';
+import {Graph} from './graph';
 
 @Component({
   selector: 'graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css']
 })
+
 export class GraphComponent {
-title = 'Angular Charts';
+  title = 'Angular Charts';
 
   view: [number, number] = [600, 400];
 
@@ -16,130 +19,37 @@ title = 'Angular Charts';
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Country';
-  showYAxisLabel = true;
-  yAxisLabel = 'Sales';
+  xAxisLabel = 'Datum';
+  showYAxisLabel = false;
+  yAxisLabel = 'Platzierung';
   timeline = true;
 
-  colorScheme = {
-    domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
-  };
-
-  //pie
+  // pie
   showLabels = true;
 
   // data goes here
-public single = [
-  {
-    "name": "China",
-    "value": 2243772
-  },
-  {
-    "name": "USA",
-    "value": 1126000
-  },
-  {
-    "name": "Norway",
-    "value": 296215
-  },
-  {
-    "name": "Japan",
-    "value": 257363
-  },
-  {
-    "name": "Germany",
-    "value": 196750
-  },
-  {
-    "name": "France",
-    "value": 204617
+  public single: {name: string, series: {name: string, value: number}[]}[] =
+    [{name: 'Dummy Data', series: [
+      {
+        name: '2010',
+        value: 7300000
+      },
+      {
+        name: '2011',
+        value: 8940000
+      }
+    ]
+  }];
+  public graph: Graph | undefined = undefined;
+
+  constructor(private graphService: GraphService) {}
+
+  ngOnInit(): void{
+    this.getData();
   }
-];
 
-public multi = [
-  {
-    "name": "China",
-    "series": [
-      {
-        "name": "2018",
-        "value": 2243772
-      },
-      {
-        "name": "2017",
-        "value": 1227770
-      }
-    ]
-  },
-
-  {
-    "name": "USA",
-    "series": [
-      {
-        "name": "2018",
-        "value": 1126000
-      },
-      {
-        "name": "2017",
-        "value": 764666
-      }
-    ]
-  },
-
-  {
-    "name": "Norway",
-    "series": [
-      {
-        "name": "2018",
-        "value": 296215
-      },
-      {
-        "name": "2017",
-        "value": 209122
-      }
-    ]
-  },
-
-  {
-    "name": "Japan",
-    "series": [
-      {
-        "name": "2018",
-        "value": 257363
-      },
-      {
-        "name": "2017",
-        "value": 205350
-      }
-    ]
-  },
-
-  {
-    "name": "Germany",
-    "series": [
-      {
-        "name": "2018",
-        "value": 196750
-      },
-      {
-        "name": "2017",
-        "value": 129246
-      }
-    ]
-  },
-
-  {
-    "name": "France",
-    "series": [
-      {
-        "name": "2018",
-        "value": 204617
-      },
-      {
-        "name": "2017",
-        "value": 149797
-      }
-    ]
+  getData(): void{
+    this.graphService.getData().subscribe(data => this.single = data.data);
+    console.log("This took me long enough");
   }
-];
-
 }

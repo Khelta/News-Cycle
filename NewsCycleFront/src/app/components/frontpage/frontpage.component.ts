@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Word} from "../../models/word.model";
-import {WordService} from "../../services/word.service";
 import {Observable} from "rxjs";
 
 @Component({
@@ -9,7 +8,7 @@ import {Observable} from "rxjs";
   styleUrls: ['./frontpage.component.css']
 })
 export class FrontpageComponent implements OnInit {
-  constructor(private wordService: WordService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

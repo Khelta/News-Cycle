@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {FrontpageComponent} from "./components/frontpage/frontpage.component";
+import {GraphComponent} from "./components/graph/graph.component";
 
 const routes: Routes = [
-  {path: '', component: FrontpageComponent}
+  {path: '', component: GraphComponent}
 ];
 
 @NgModule({
