@@ -11,10 +11,24 @@ class Word(models.Model):
     description = models.TextField(null=True)
 
 
-class Rank(models.Model):
+class Wordcount(models.Model):
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
     medium = models.ForeignKey(Medium, on_delete=models.CASCADE)
-    date = models.DateField()
-    rank = models.IntegerField()
+    date = models.DateField(auto_now_add=True)
+    count = models.IntegerField()
 
-    unique_together = ['rank', 'medium', 'date']
+    def __str__(self):
+        return "{}, {}, {}, {}".format(self.word.word,
+                                       self.count,
+                                       self.date,
+                                       self.medium.name)
+
+    def rank(self):
+        aggregate = Wordcount.objects.filter(medium=self.medium,
+                                             date=self.date,
+                                             count__gte=self.count)
+        return len(aggregate)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['word', 'medium', 'date'],
+                                               name='unique words per date')]
