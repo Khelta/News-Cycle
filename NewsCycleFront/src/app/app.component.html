@@ -1,3 +1,31 @@
-<toolbar></toolbar>
-<graph></graph>
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="sidenav.open()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>News Cycle</span>
+  <span class="custom-navbar-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
+
+
+<mat-sidenav-container
+  class="sidenav-container" (backdropClick)="close()"
+  autosize>
+  <mat-sidenav class="sidenav"#sidenav (keydown.escape)="close()" disableClose>
+    <mat-nav-list #sidenav (click)="close()">
+      <a mat-list-item routerLink="." *ngFor="let nav of navList">{{nav}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="sidenav-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
 

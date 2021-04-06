@@ -7,7 +7,7 @@ import {Graph} from './graph';
   providedIn: 'root'
 })
 export class GraphService {
-  private baseUrl = 'http://127.0.0.1:8000/api/test';
+  private baseUrl = 'http://127.0.0.1:8000/api/topTenSevenDays/tagesschau/';
 
   constructor(private http: HttpClient) {
   }

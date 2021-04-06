@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'News Cycle';
+
+  @ViewChild('sidenav') sidenav: MatSidenav;
+  navList = ['Test', 'NochEinTest'];
+
+
+  close(): void {
+    this.sidenav.close();
+  }
+
+  constructor() {
+    // @ts-ignore
+    this.sidenav = MatSidenav;
+  }
 }

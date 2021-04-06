@@ -28,7 +28,6 @@ def topTenByMediumAndLastSevenDays(request, medium='tagesschau'):
 
     for i in range(1, 8):
         date = referenceDate + timedelta(days=i)
-        print(date)
         data = data | Wordcount.objects.order_by('-count').filter(date=date, medium__name=medium)[:10]
 
     data.order_by('word')

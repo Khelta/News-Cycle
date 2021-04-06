@@ -1,5 +1,5 @@
-
-<ngx-charts-line-chart
+<div class="graph">
+  <ngx-charts-line-chart
         [view]="view"
         class="chart-container"
         [legend]="showLegend"
@@ -11,8 +11,11 @@
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
         [autoScale]=true
-        [results]="single"
->
+        [results]="results"
+        [legendTitle]="legendTitle"
+        [curve]="curve">
       </ngx-charts-line-chart>
+</div>
+
 
 

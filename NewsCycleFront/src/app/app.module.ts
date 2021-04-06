@@ -12,10 +12,11 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';;
 
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
-import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {FrontpageComponent} from './components/frontpage/frontpage.component';
 import { GraphComponent } from './components/graph/graph.component';
 
@@ -24,7 +25,6 @@ import { GraphComponent } from './components/graph/graph.component';
   declarations: [
     AppComponent,
     FrontpageComponent,
-    ToolbarComponent,
     GraphComponent,
   ],
   imports: [
@@ -38,7 +38,9 @@ import { GraphComponent } from './components/graph/graph.component';
     MatIconModule,
     MatButtonModule,
     NgxChartsModule,
-    CommonModule
+    CommonModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

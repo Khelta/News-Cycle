@@ -1,14 +1,17 @@
-import { Component, NgModule } from '@angular/core';
+import {Component, Input, NgModule} from '@angular/core';
+import * as shape from 'd3-shape';
 import {GraphService} from './graph.service';
 import {Graph} from './graph';
 
 @Component({
-  selector: 'graph',
+  selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css']
 })
 
 export class GraphComponent {
+  @Input() medium: string | undefined;
+
   title = 'Angular Charts';
 
   view: [number, number] = [600, 400];
@@ -20,15 +23,17 @@ export class GraphComponent {
   showLegend = true;
   showXAxisLabel = true;
   xAxisLabel = 'Datum';
-  showYAxisLabel = false;
+  showYAxisLabel = true;
   yAxisLabel = 'Platzierung';
   timeline = true;
+  legendTitle = 'Legende';
+  curve = shape.curveBasis;
 
   // pie
   showLabels = true;
 
   // data goes here
-  public single: {name: string, series: {name: string, value: number}[]}[] =
+  public results: {name: string, series: {name: string, value: number}[]}[] =
     [{name: 'Dummy Data', series: [
       {
         name: '2010',
@@ -49,7 +54,7 @@ export class GraphComponent {
   }
 
   getData(): void{
-    this.graphService.getData().subscribe(data => this.single = data.data);
-    console.log("This took me long enough");
+    this.graphService.getData().subscribe(data => this.results = data.data);
+    console.log('This took me long enough');
   }
 }

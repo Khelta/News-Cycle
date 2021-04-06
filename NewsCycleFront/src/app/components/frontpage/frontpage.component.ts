@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Word} from "../../models/word.model";
-import {Observable} from "rxjs";
+
 
 @Component({
   selector: 'app-frontpage',
@@ -12,8 +11,4 @@ export class FrontpageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  //testFunction(): Observable<any>{
-  //  return this.wordService.getID(1);
-  //}
 }
