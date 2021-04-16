@@ -28,6 +28,7 @@ if __name__ == "__main__":
 
         with open(path) as f:
             wordcount = {}
+            wordtype = {}
 
             jsondata = json.load(f)
             for jsonentry in jsondata:
@@ -41,10 +42,11 @@ if __name__ == "__main__":
                             wordcount[token[0]] += 1
                         else:
                             wordcount[token[0]] = 1
+                            wordtype[token[0]] = token[1]
 
             newsdata = []
             for entry in wordcount:
-                newsdata.append({'word': entry, 'count': wordcount[entry]})
+                newsdata.append({'word': entry, 'count': wordcount[entry], 'type': wordtype[entry]})
             data[i] = ({'medium': newssite[:-5], 'data': newsdata})
             i += 1
 

@@ -1,0 +1,13 @@
+<ngx-charts-pie-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="results"
+  [gradient]="gradient"
+  [legend]="showLegend"
+  [legendPosition]="legendPosition"
+  [labels]="showLabels"
+  [doughnut]="isDoughnut"
+  >
+</ngx-charts-pie-chart>
+
+<mat-slider thumbLabel min="1" max="100" step="1" value="0" (valueChange)="onSliderChange($event)"></mat-slider>

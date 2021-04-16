@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
             for entry in data:
                 if len(Word.objects.all().filter(word=entry["word"])) == 0:
-                    word = Word(word=entry["word"])
+                    word = Word(word=entry["word"], type=entry["type"])
                     word.save()
                 else:
                     word = Word.objects.get(word=entry["word"])

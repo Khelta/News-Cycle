@@ -8,7 +8,11 @@ class Medium(models.Model):
 
 class Word(models.Model):
     word = models.CharField(max_length=40, null=False)
+    type = models.CharField(max_length=5, null=False)
     description = models.TextField(null=True)
+
+    def __unicode__(self):
+        return self.word
 
 
 class Wordcount(models.Model):

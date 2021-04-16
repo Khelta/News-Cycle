@@ -10,7 +10,9 @@ import {Graph} from './graph';
 })
 
 export class GraphComponent {
-  @Input() medium: string | undefined;
+  @Input() medium = 'tagesschau';
+  @Input() date = '2021-04-07';
+  @Input() moreThan = '20';
 
   title = 'Angular Charts';
 
@@ -33,19 +35,7 @@ export class GraphComponent {
   showLabels = true;
 
   // data goes here
-  public results: {name: string, series: {name: string, value: number}[]}[] =
-    [{name: 'Dummy Data', series: [
-      {
-        name: '2010',
-        value: 7300000
-      },
-      {
-        name: '2011',
-        value: 8940000
-      }
-    ]
-  }];
-  public graph: Graph | undefined = undefined;
+  public results: { name: string; series: { name: string; value: number; }[]; }[] | undefined;
 
   constructor(private graphService: GraphService) {}
 
@@ -54,7 +44,7 @@ export class GraphComponent {
   }
 
   getData(): void{
-    this.graphService.getData().subscribe(data => this.results = data.data);
+    this.graphService.getData(this.medium).subscribe(data => this.results = data.data);
     console.log('This took me long enough');
   }
 }

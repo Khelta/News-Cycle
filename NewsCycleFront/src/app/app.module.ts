@@ -19,6 +19,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 import {FrontpageComponent} from './components/frontpage/frontpage.component';
 import { GraphComponent } from './components/graph/graph.component';
+import {PieComponent} from './components/pie/pie.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { GraphComponent } from './components/graph/graph.component';
     AppComponent,
     FrontpageComponent,
     GraphComponent,
+    PieComponent
   ],
   imports: [
     BrowserModule,
