@@ -1,0 +1,16 @@
+.pie-slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*border: green 3px solid;*/
+}
+
+.pie-slider {
+  float:left
+}
+
+.pie-chart{
+  /*border: red 3px solid;*/
+  height: 400px;
+}
+

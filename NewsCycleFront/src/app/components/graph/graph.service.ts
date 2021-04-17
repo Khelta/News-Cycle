@@ -13,7 +13,8 @@ export class GraphService {
   }
 
   getData(medium: string): Observable<Graph> {
-    // const graph: Graph = {data: [{name: 'Deutschland', series: [{name: '1', value: 10}, {name: '2', value: 9}, {name: '3', value: 11}]}]};
+    // const graph: Graph = {data: [{name: 'Deutschland', series: [{name: '1', value: 10}, {name: '2', value: 9},
+    // {name: '3', value: 11}]}]};
     // return of(graph);
     const apiURL = this.baseUrl + medium + '/';
     return this.http.get<Graph>(apiURL, {observe: 'body', responseType: 'json'});

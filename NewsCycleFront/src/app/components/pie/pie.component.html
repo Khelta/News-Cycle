@@ -1,13 +1,30 @@
-<ngx-charts-pie-chart
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="results"
-  [gradient]="gradient"
-  [legend]="showLegend"
-  [legendPosition]="legendPosition"
-  [labels]="showLabels"
-  [doughnut]="isDoughnut"
+<div class="pie-chart">
+  <ngx-charts-pie-chart
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="results"
+    [gradient]="gradient"
+    [legend]="showLegend"
+    [legendPosition]="legendPosition"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
   >
-</ngx-charts-pie-chart>
+  </ngx-charts-pie-chart>
+</div>
 
-<mat-slider thumbLabel min="1" max="100" step="1" value="0" (valueChange)="onSliderChange($event)"></mat-slider>
+<div class="pie-slider-container">
+  <div class="pie-slider">
+    <label>Maximale Anzahl Wörter</label>
+    <mat-slider thumbLabel min="1" max="100" step="1" [value]="maxWords"
+                (valueChange)="onMaxWordSliderChange($event)"></mat-slider>
+  </div>
+
+  <div class="pie-slider">
+    <label>Minimale Vorkommnisse</label>
+    <mat-slider thumbLabel min="1" max="100" step="1" [value]="moreThan"
+                (valueChange)="onMoreThanSliderChange($event)"></mat-slider>
+  </div>
+</div>
+
+
+

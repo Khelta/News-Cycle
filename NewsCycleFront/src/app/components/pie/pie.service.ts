@@ -11,9 +11,9 @@ export class PieService {
 
   constructor(private http: HttpClient) { }
 
-  getData(medium: string, date: string, moreThan: string): Observable<Pie> {
+  getData(medium: string, date: string, moreThan: string, maxWords: string): Promise<Pie> {
 
-    const apiURL = this.baseUrl + 'dataMediumDate/' + medium + '/' + date + '/' + moreThan + '/';
-    return this.http.get<Pie>(apiURL, {observe: 'body', responseType: 'json'});
+    const apiURL = this.baseUrl + 'dataMediumDate/' + medium + '/' + date + '/' + moreThan + '/' + maxWords + '/';
+    return this.http.get<Pie>(apiURL, {observe: 'body', responseType: 'json'}).toPromise();
   }
 }
