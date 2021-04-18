@@ -30,3 +30,11 @@ class WordCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wordcount
         fields = ['name', 'value']
+
+
+class TypeSerializer(serializers.ModelSerializer):
+    type = serializers.CharField(source='type')
+
+    class Meta:
+        model = Word
+        fields = ['type']

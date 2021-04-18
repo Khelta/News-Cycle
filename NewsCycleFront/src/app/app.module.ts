@@ -13,7 +13,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';;
+import {MatListModule} from '@angular/material/list';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
@@ -43,6 +46,9 @@ import {PieComponent} from './components/pie/pie.component';
     CommonModule,
     MatSidenavModule,
     MatListModule,
+    MatSlideToggleModule,
+    MatMenuModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,6 @@
 import {Component, Input, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import {MatInputModule} from '@angular/material/input';
 import {Pie} from './pie';
 import {PieService} from './pie.service';
 
@@ -15,6 +14,7 @@ export class PieComponent {
   date = '2021-04-07';
   moreThan = '20';
   maxWords = '10';
+  types: {type: string}[] = [];
 
   results: {name: string, value: number}[] = [/*{name: 'Germany', value: 8940000}, {name: 'USA', value: 5000000}*/];
   view: [number, number] = [700, 400];
@@ -33,13 +33,17 @@ export class PieComponent {
   constructor(private pieService: PieService){}
 
   ngOnInit(): void{
+    this.getWordtypes();
     this.getData();
   }
 
   getData(): void{
     const promise = this.pieService.getData(this.medium, this.date, this.moreThan, this.maxWords).then(data => this.results = data.data);
     promise.then(data => this.updateColor());
+  }
 
+  getWordtypes(): void{
+    this.pieService.getWordTypes().subscribe(data => this.types = data.data);
   }
 
   updateSlider(): void{

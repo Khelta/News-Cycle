@@ -16,4 +16,9 @@ export class PieService {
     const apiURL = this.baseUrl + 'dataMediumDate/' + medium + '/' + date + '/' + moreThan + '/' + maxWords + '/';
     return this.http.get<Pie>(apiURL, {observe: 'body', responseType: 'json'}).toPromise();
   }
+
+  getWordTypes(): Observable<{data: {type: string}[]}> {
+    const apiURL = this.baseUrl + 'wordtypes/';
+    return this.http.get<{data: {type: string}[]}>(apiURL, {observe: 'body', responseType: 'json'});
+  }
 }

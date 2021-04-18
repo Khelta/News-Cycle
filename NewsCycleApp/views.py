@@ -1,9 +1,9 @@
 from django.http import JsonResponse, HttpResponse
 from rest_framework import status
-from NewsCycleApp.models import Wordcount, Medium
+from NewsCycleApp.models import Wordcount, Medium, Word
 from datetime import datetime, timedelta
 from NewsCycleApp.viewHelper import transformQuerysetToGraphData
-from NewsCycleApp.serializers import WordCountSerializer
+from NewsCycleApp.serializers import WordCountSerializer, TypeSerializer
 
 
 # Create your views here.
@@ -44,4 +44,16 @@ def dataByMediumAndDate(request, medium, date, gt, max_words):
     return JsonResponse({'data': data}, status=status.HTTP_200_OK, safe=False)
 
 
+def wordTypes(request):
+    # SQLite does not support distinct
+    """
+    data = Word.objects.all().distinct('type')
+    data = TypeSerializer(data, many=True).data
+    return JsonResponse({'data': data}, status=status.HTTP_200_OK)
+    """
 
+    # So we just hardcode because i dont want to setup a real database
+    return JsonResponse(data={'data': [{'type': 'NOUN'},
+                                       {'type': 'ADJ'},
+                                       {'type': 'VERB'},
+                                       {'type': 'PROPN'}]})

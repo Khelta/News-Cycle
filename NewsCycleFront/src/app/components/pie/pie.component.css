@@ -14,3 +14,24 @@
   height: 400px;
 }
 
+.labelBeforeSlide{
+  padding: 5px;
+}
+
+.title{
+  /*border: green 3px solid;*/
+  font-weight: bold;
+  font-size: x-large;
+  padding-top: 11px;
+}
+
+.options-menu{
+  /*border: blue 3px solid;*/
+}
+
+.title-container{
+  /*border: red 3px solid;*/
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
