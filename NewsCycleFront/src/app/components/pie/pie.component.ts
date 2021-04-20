@@ -38,6 +38,7 @@ export class PieComponent {
   }
 
   getData(): void {
+    // @ts-ignore
     const promise = this.pieService.getData(this.medium, this.date, this.moreThan, this.maxWords, this.currentTypes)
       .then(data => this.results = data.data);
     promise.then(() => this.updateColor());

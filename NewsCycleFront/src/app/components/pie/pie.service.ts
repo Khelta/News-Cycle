@@ -8,10 +8,11 @@ import {Pie} from './pie';
 })
 export class PieService {
   private baseUrl = 'http://127.0.0.1:8000/api/';
+  private mapCache: Map<string, Promise<Pie>> = new Map<string, Promise<Pie>>();
 
   constructor(private http: HttpClient) { }
 
-  getData(medium: string, date: string, moreThan: string, maxWords: string, wordTypes: string): Promise<Pie> {
+  getData(medium: string, date: string, moreThan: string, maxWords: string, wordTypes: string): Promise<Pie> | undefined {
 
     const apiURL = this.baseUrl + 'dataMediumDate/'
       + medium + '/'
@@ -19,7 +20,10 @@ export class PieService {
       + moreThan + '/'
       + maxWords + '/'
       + wordTypes + '/';
-    return this.http.get<Pie>(apiURL, {observe: 'body', responseType: 'json'}).toPromise();
+    if (!this.mapCache.has(apiURL)){
+      this.mapCache.set(apiURL, this.http.get<Pie>(apiURL, {observe: 'body', responseType: 'json'}).toPromise());
+    }
+    return this.mapCache.get(apiURL);
   }
 
   getWordTypes(): Promise<{data: {type: string}[]}> {
