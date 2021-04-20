@@ -38,8 +38,13 @@ def topTenByMediumAndLastSevenDays(request, medium):
     return JsonResponse(data, status=status.HTTP_200_OK)
 
 
-def dataByMediumAndDate(request, medium, date, gt, max_words):
-    data = Wordcount.objects.filter(date=date, medium__name=medium, count__gt=gt).order_by('-count')[:max_words]
+def dataByMediumAndDate(request, medium, date, gt, max_words, word_types):
+    word_types = word_types.split('+')
+    data = Wordcount.objects.filter(date=date,
+                                    medium__name=medium,
+                                    count__gt=gt,
+                                    word__type__in=word_types).order_by('-count')[:max_words]
+
     data = WordCountSerializer(data, many=True).data
     return JsonResponse({'data': data}, status=status.HTTP_200_OK, safe=False)
 

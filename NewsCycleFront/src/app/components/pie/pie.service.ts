@@ -11,14 +11,19 @@ export class PieService {
 
   constructor(private http: HttpClient) { }
 
-  getData(medium: string, date: string, moreThan: string, maxWords: string): Promise<Pie> {
+  getData(medium: string, date: string, moreThan: string, maxWords: string, wordTypes: string): Promise<Pie> {
 
-    const apiURL = this.baseUrl + 'dataMediumDate/' + medium + '/' + date + '/' + moreThan + '/' + maxWords + '/';
+    const apiURL = this.baseUrl + 'dataMediumDate/'
+      + medium + '/'
+      + date + '/'
+      + moreThan + '/'
+      + maxWords + '/'
+      + wordTypes + '/';
     return this.http.get<Pie>(apiURL, {observe: 'body', responseType: 'json'}).toPromise();
   }
 
-  getWordTypes(): Observable<{data: {type: string}[]}> {
+  getWordTypes(): Promise<{data: {type: string}[]}> {
     const apiURL = this.baseUrl + 'wordtypes/';
-    return this.http.get<{data: {type: string}[]}>(apiURL, {observe: 'body', responseType: 'json'});
+    return this.http.get<{data: {type: string}[]}>(apiURL, {observe: 'body', responseType: 'json'}).toPromise();
   }
 }
