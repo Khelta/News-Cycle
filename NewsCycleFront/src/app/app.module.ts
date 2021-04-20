@@ -8,6 +8,7 @@ import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 import {MatSliderModule} from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -17,11 +18,12 @@ import {MatListModule} from '@angular/material/list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 import {FrontpageComponent} from './components/frontpage/frontpage.component';
-import { GraphComponent } from './components/graph/graph.component';
+import {GraphComponent} from './components/graph/graph.component';
 import {PieComponent} from './components/pie/pie.component';
 
 
@@ -49,6 +51,7 @@ import {PieComponent} from './components/pie/pie.component';
     MatSlideToggleModule,
     MatMenuModule,
     MatFormFieldModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
