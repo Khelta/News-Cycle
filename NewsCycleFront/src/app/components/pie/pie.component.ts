@@ -7,13 +7,15 @@ import {PieService} from './pie.service';
   styleUrls: ['./pie.component.css']
 })
 export class PieComponent {
-  medium = 'tagesschau';
   date = '2021-04-07';
-  moreThan = '20';
-  maxWords = '10';
+  moreThan = 1;
+  maxWords = 10;
   types: string[] = [];
+  media: string[] = [];
   typesToggled: Map<string, boolean> = new Map<string, boolean>();
+  mediaToggled: Map<string, boolean> = new Map<string, boolean>();
   currentTypes = 'NOUN';
+  currentMedia = 'tagesschau+';
 
   results: { name: string, value: number }[] = [/*{name: 'Germany', value: 8940000}, {name: 'USA', value: 5000000}*/];
   view: [number, number] = [700, 400];
@@ -34,19 +36,20 @@ export class PieComponent {
 
   ngOnInit(): void {
     this.initWordtypes();
+    this.initMedia();
     this.getData();
   }
 
   getData(): void {
     // @ts-ignore
-    const promise = this.pieService.getData(this.medium, this.date, this.moreThan, this.maxWords, this.currentTypes)
-      .then(data => this.results = data.data);
+    const promise = this.pieService.getData(this.currentMedia, this.date, this.moreThan, this.maxWords, this.currentTypes)
+      .then(data => this.results = data);
     promise.then(() => this.updateColor());
   }
 
   initWordtypes(): void {
     this.pieService.getWordTypes().then(data => {
-      for (const entry of data.data) {
+      for (const entry of data) {
         this.types.push(entry.type);
       }
     })
@@ -57,9 +60,34 @@ export class PieComponent {
       });
   }
 
+  initMedia(): void {
+    this.pieService.getMedia().then(data => {
+        for (const entry of data) {
+          this.media.push(entry.name);
+        }
+      }
+    ).then(() => {
+      for (const entry of this.media) {
+        this.mediaToggled.set(entry, false);
+      }
+    });
+  }
+
   getWordtypeParameter(): string {
     let result = '';
     for (const entry of this.typesToggled) {
+      if (entry[1]) {
+        result = result + entry[0] + '+';
+      }
+    }
+    return result;
+  }
+
+  getMediaParameter(): string {
+    let result = '';
+    console.log(this.media);
+    console.log(this.mediaToggled);
+    for (const entry of this.mediaToggled) {
       if (entry[1]) {
         result = result + entry[0] + '+';
       }
@@ -108,6 +136,19 @@ export class PieComponent {
     const wordtypeParameter = this.getWordtypeParameter();
     if (wordtypeParameter !== '') {
       this.currentTypes = wordtypeParameter;
+      this.getData();
+    }
+  }
+
+  updateMediaToggle(event: any): void{
+    const id = event.target.innerText;
+    console.log(event);
+    console.log('Thats a nice log', id);
+
+    this.mediaToggled.set(id, !this.typesToggled.get(id));
+    const mediaParameter = this.getMediaParameter();
+    if (mediaParameter !== '') {
+      this.currentMedia = mediaParameter;
       this.getData();
     }
   }

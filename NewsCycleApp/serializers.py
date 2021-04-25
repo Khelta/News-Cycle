@@ -38,3 +38,9 @@ class TypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Word
         fields = ['type']
+
+
+class MediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medium
+        fields = '__all__'

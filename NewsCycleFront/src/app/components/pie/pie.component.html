@@ -5,6 +5,17 @@
 </div>
 
 <div class="title-container">
+  <button mat-button [matMenuTriggerFor]="mediumMenu">Medium</button>
+  <mat-menu #mediumMenu="matMenu">
+    <mat-selection-list>
+      <mat-list-option id="{{medium}}"
+                       *ngFor="let medium of media"
+                       (click)="$event.stopPropagation(); updateMediaToggle($event)">{{medium}}</mat-list-option>
+    </mat-selection-list>
+  </mat-menu>
+</div>
+
+<div class="title-container">
   <div class="pie-chart">
     <ngx-charts-pie-chart
       [view]="view"

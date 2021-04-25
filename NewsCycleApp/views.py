@@ -1,9 +1,13 @@
-from django.http import JsonResponse, HttpResponse
-from rest_framework import status
-from NewsCycleApp.models import Wordcount, Medium, Word
 from datetime import datetime, timedelta
+
+from django.http import JsonResponse
+from rest_framework import status, permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from NewsCycleApp.models import Wordcount, Medium
+from NewsCycleApp.serializers import WordCountSerializer, MediaSerializer
 from NewsCycleApp.viewHelper import transformQuerysetToGraphData
-from NewsCycleApp.serializers import WordCountSerializer, TypeSerializer
 
 
 # Create your views here.
@@ -40,25 +44,39 @@ def topTenByMediumAndLastSevenDays(request, medium):
 
 def dataByMediumAndDate(request, medium, date, gt, max_words, word_types):
     word_types = word_types.split('+')
+    medium = medium.split('+')
     data = Wordcount.objects.filter(date=date,
-                                    medium__name=medium,
+                                    medium__name__in=medium,
                                     count__gt=gt,
                                     word__type__in=word_types).order_by('-count')[:max_words]
 
     data = WordCountSerializer(data, many=True).data
-    return JsonResponse({'data': data}, status=status.HTTP_200_OK, safe=False)
+    return JsonResponse(data, status=status.HTTP_200_OK, safe=False)
 
 
-def wordTypes(request):
-    # SQLite does not support distinct
-    """
-    data = Word.objects.all().distinct('type')
-    data = TypeSerializer(data, many=True).data
-    return JsonResponse({'data': data}, status=status.HTTP_200_OK)
-    """
+class Wordtypes(APIView):
+    permission_classes = (permissions.AllowAny,)
 
-    # So we just hardcode because i dont want to setup a real database
-    return JsonResponse(data={'data': [{'type': 'NOUN'},
-                                       {'type': 'ADJ'},
-                                       {'type': 'VERB'},
-                                       {'type': 'PROPN'}]})
+    def get(self, request):
+        # SQLite does not support distinct
+        """
+        data = Word.objects.all().distinct('type')
+        data = TypeSerializer(data, many=True).data
+        return JsonResponse({'data': data}, status=status.HTTP_200_OK)
+        """
+
+        # So we just hardcode because i dont want to setup a real database
+        return Response(data=[{'type': 'NOUN'},
+                              {'type': 'ADJ'},
+                              {'type': 'VERB'},
+                              {'type': 'PROPN'}],
+                        status=status.HTTP_200_OK)
+
+
+class Media(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request):
+        data = Medium.objects.all()
+        data = MediaSerializer(data, many=True).data
+        return Response(data=data, status=status.HTTP_200_OK)
