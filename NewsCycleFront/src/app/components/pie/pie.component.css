@@ -30,9 +30,18 @@
   /*border: blue 3px solid;*/
 }
 
-.title-container{
-  /*border: red 3px solid;*/
+.container{
+  border: pink 3px solid;
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+.date{
+  /*border: red 3px solid;*/
+  padding-top: 15px;
+}
+
+.button{
+  padding-top: 25px;
 }

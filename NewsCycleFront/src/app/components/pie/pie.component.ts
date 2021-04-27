@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {PieService} from './pie.service';
+import {Wordcount} from './interfaces';
 
 @Component({
   selector: 'app-pie',
@@ -7,17 +8,19 @@ import {PieService} from './pie.service';
   styleUrls: ['./pie.component.css']
 })
 export class PieComponent {
-  date = '2021-04-07';
+  date =  new Date().toISOString().slice(0, 10) + '+' + new Date().toISOString().slice(0, 10);
+  startDate = new Date().toISOString().slice(0, 10);
+  endDate = new Date().toISOString().slice(0, 10);
   moreThan = 1;
   maxWords = 10;
   types: string[] = [];
   media: string[] = [];
   typesToggled: Map<string, boolean> = new Map<string, boolean>();
   mediaToggled: Map<string, boolean> = new Map<string, boolean>();
-  currentTypes = 'NOUN';
+  currentTypes = 'NOUN+';
   currentMedia = 'tagesschau+';
 
-  results: { name: string, value: number }[] = [/*{name: 'Germany', value: 8940000}, {name: 'USA', value: 5000000}*/];
+  results: Wordcount[] = [/*{name: 'Germany', value: 8940000}, {name: 'USA', value: 5000000}*/];
   view: [number, number] = [700, 400];
 
   // options
@@ -101,7 +104,7 @@ export class PieComponent {
     let j = 0;
     const max = this.results[0].value;
     const min = this.results[this.results.length - 1].value;
-    for (let i of this.results) {
+    for (const i of this.results) {
       value = Math.floor(this.mapMinMax(i.value, min, max, 100, 255)).toString(16);
       value = value.length === 1 ? '0' + value : value;
 

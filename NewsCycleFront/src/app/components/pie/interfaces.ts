@@ -1,5 +1,5 @@
 export interface Wordcount {
-  name: string,
+  name: string;
   value: number;
 }
 

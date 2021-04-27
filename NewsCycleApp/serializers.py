@@ -24,11 +24,11 @@ class WordCountMediumSerializer(serializers.ModelSerializer):
 
 
 class WordCountSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='word.word')
-    value = serializers.IntegerField(source='count')
+    name = serializers.CharField(source='word')
+    value = serializers.IntegerField(source='total_count', read_only=True)
 
     class Meta:
-        model = Wordcount
+        model = Word
         fields = ['name', 'value']
 
 

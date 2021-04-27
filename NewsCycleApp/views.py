@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 
+from django.db.models import Sum
 from django.http import JsonResponse
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from NewsCycleApp.models import Wordcount, Medium
+from NewsCycleApp.models import Wordcount, Medium, Word
 from NewsCycleApp.serializers import WordCountSerializer, MediaSerializer
 from NewsCycleApp.viewHelper import transformQuerysetToGraphData
 
@@ -45,10 +46,29 @@ def topTenByMediumAndLastSevenDays(request, medium):
 def dataByMediumAndDate(request, medium, date, gt, max_words, word_types):
     word_types = word_types.split('+')
     medium = medium.split('+')
-    data = Wordcount.objects.filter(date=date,
-                                    medium__name__in=medium,
-                                    count__gt=gt,
-                                    word__type__in=word_types).order_by('-count')[:max_words]
+    date = date.split('+')
+    validDates = []
+
+    for entry in date:
+        try:
+            datetime.strptime(entry, '%Y-%m-%d')
+            validDates.append(entry)
+        except ValueError:
+            continue
+
+    if len(validDates) == 2:
+
+        data = Word.objects.filter(wordcount__date__gte=validDates[0],
+                                   wordcount__date__lte=validDates[1],
+                                   wordcount__medium__name__in=medium,
+                                   wordcount__count__gt=gt,
+                                   wordcount__word__type__in=word_types).annotate(
+            total_count=Sum('wordcount__count')).order_by('-total_count')[:max_words]
+
+
+
+    else:
+        return JsonResponse(data={}, status=status.HTTP_400_BAD_REQUEST)
 
     data = WordCountSerializer(data, many=True).data
     return JsonResponse(data, status=status.HTTP_200_OK, safe=False)

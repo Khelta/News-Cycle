@@ -19,6 +19,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
@@ -52,8 +55,11 @@ import {PieComponent} from './components/pie/pie.component';
     MatMenuModule,
     MatFormFieldModule,
     MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {

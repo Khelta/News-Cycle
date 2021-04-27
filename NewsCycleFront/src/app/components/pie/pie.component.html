@@ -1,21 +1,38 @@
-<div class="title-container">
+<div class="container">
   <div class="title">
     <label>Großer Titel</label>
   </div>
 </div>
 
-<div class="title-container">
-  <button mat-button [matMenuTriggerFor]="mediumMenu">Medium</button>
-  <mat-menu #mediumMenu="matMenu">
-    <mat-selection-list>
-      <mat-list-option id="{{medium}}"
-                       *ngFor="let medium of media"
-                       (click)="$event.stopPropagation(); updateMediaToggle($event)">{{medium}}</mat-list-option>
-    </mat-selection-list>
-  </mat-menu>
+
+<div class="container">
+  <div class="button">
+    <button mat-button [matMenuTriggerFor]="mediumMenu">Medium</button>
+  </div>
+  <div class=" date">
+    <mat-form-field appearance="fill">
+      <mat-label>Geben Sie den Datumsbereich an</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" [value]="startDate">
+        <input matEndDate placeholder="End date" [value]="endDate">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
 </div>
 
-<div class="title-container">
+
+<mat-menu #mediumMenu="matMenu">
+  <mat-selection-list>
+    <mat-list-option id="{{medium}}"
+                     *ngFor="let medium of media"
+                     (click)="$event.stopPropagation(); updateMediaToggle($event)">{{medium}}</mat-list-option>
+  </mat-selection-list>
+</mat-menu>
+
+
+<div class="container">
   <div class="pie-chart">
     <ngx-charts-pie-chart
       [view]="view"
@@ -30,18 +47,18 @@
     </ngx-charts-pie-chart>
   </div>
   <div class="options-menu">
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>more_vert</mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>Filter für Wortarten</button>
+      <button mat-menu-item *ngFor="let type of types" (click)="$event.stopPropagation()">
+        <mat-slide-toggle id="{{type}}"
+                          (click)="$event.stopPropagation()"
+                          (change)="updateWordTypeToggle($event)">{{type}}</mat-slide-toggle>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item disabled>Filter für Wortarten</button>
-        <button mat-menu-item *ngFor="let type of types" (click)="$event.stopPropagation()">
-          <mat-slide-toggle id="{{type}}"
-                            (click)="$event.stopPropagation()"
-                            (change)="updateWordTypeToggle($event)">{{type}}</mat-slide-toggle>
-        </button>
-      </mat-menu>
-    </div>
+    </mat-menu>
+  </div>
 </div>
 
 
