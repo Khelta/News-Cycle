@@ -1,6 +1,6 @@
 <div class="container">
   <div class="title">
-    <label>Großer Titel</label>
+    <label>Worthäufigkeit in ausgewählten Medien</label>
   </div>
 </div>
 
@@ -13,8 +13,8 @@
     <mat-form-field appearance="fill">
       <mat-label>Geben Sie den Datumsbereich an</mat-label>
       <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date" [value]="startDate">
-        <input matEndDate placeholder="End date" [value]="endDate">
+        <input matStartDate placeholder="Start date" [value]="startDate" #startD>
+        <input matEndDate placeholder="End date" [value]="endDate" #endD (dateChange)="updateDatepicker(startD, endD)">
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>

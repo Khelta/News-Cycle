@@ -8,9 +8,12 @@ import {Wordcount} from './interfaces';
   styleUrls: ['./pie.component.css']
 })
 export class PieComponent {
-  date =  new Date().toISOString().slice(0, 10) + '+' + new Date().toISOString().slice(0, 10);
-  startDate = new Date().toISOString().slice(0, 10);
-  endDate = new Date().toISOString().slice(0, 10);
+
+  endDate = new Date();
+  startDate = new Date();
+
+  date =  this.startDate.toISOString().slice(0, 10) + '+' + this.endDate.toISOString().slice(0, 10);
+
   moreThan = 1;
   maxWords = 10;
   types: string[] = [];
@@ -98,6 +101,10 @@ export class PieComponent {
     return result;
   }
 
+  setDateParameter(): void{
+    this.date = this.startDate.toISOString().slice(0, 10) + '+' + this.endDate.toISOString().slice(0, 10);
+  }
+
   updateColor(): void {
     this.colorScheme.domain = [];
     let value: string;
@@ -152,6 +159,15 @@ export class PieComponent {
     const mediaParameter = this.getMediaParameter();
     if (mediaParameter !== '') {
       this.currentMedia = mediaParameter;
+      this.getData();
+    }
+  }
+
+  updateDatepicker(startD: HTMLInputElement, endD: HTMLInputElement): void{
+    if (endD.value !== ''){
+      this.startDate = new Date(startD.value);
+      this.endDate = new Date(endD.value);
+      this.setDateParameter();
       this.getData();
     }
   }
