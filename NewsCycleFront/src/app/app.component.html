@@ -18,13 +18,12 @@
   autosize>
   <mat-sidenav class="sidenav"#sidenav (keydown.escape)="close()" disableClose>
     <mat-nav-list #sidenav (click)="close()">
-      <a mat-list-item routerLink="." *ngFor="let nav of navList">{{nav}}</a>
+      <a mat-list-item *ngFor="let nav of navList" routerLink="{{nav[1]}}">{{nav[0]}}</a>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content class="sidenav-content">
     <router-outlet></router-outlet>
-    <app-pie></app-pie>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

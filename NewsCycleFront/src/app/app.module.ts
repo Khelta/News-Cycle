@@ -22,12 +22,14 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
 
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 import {FrontpageComponent} from './components/frontpage/frontpage.component';
 import {GraphComponent} from './components/graph/graph.component';
 import {PieComponent} from './components/pie/pie.component';
+import {UpdateComponent} from './components/update/update.component';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import {PieComponent} from './components/pie/pie.component';
     AppComponent,
     FrontpageComponent,
     GraphComponent,
-    PieComponent
+    PieComponent,
+    UpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import {PieComponent} from './components/pie/pie.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatTableModule,
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
