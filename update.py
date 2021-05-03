@@ -1,6 +1,8 @@
 import sys, os
 from os import listdir
 from os.path import isfile, join
+from NewsCycleSpaCy.spacyTokenAndLemma import tokenize_one, tokenize_all
+from NewsCycleApp.importData import import_data
 
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -14,7 +16,22 @@ scrapy = os.path.realpath("./venv/Scripts/scrapy.exe")
 spacy_scriptname = 'spacyTokenAndLemma.py'
 django_scriptname = 'importData.py'
 
-if __name__ == "__main__":
+
+def update_single(medium):
+    # scrapy
+    os.chdir(path_scrapy)
+    os.system('{} crawl {} -O {}.json'.format(scrapy, medium, medium))
+
+    # spacy
+    os.chdir(path_spacy)
+    tokenize_one(medium)
+
+    # django
+    os.chdir(path_django)
+    import_data()
+
+
+def update_all():
     # scrapy
     onlyFilesSpiders = [f for f in listdir(path_scrapy_spiders)
                         if isfile(join(path_scrapy_spiders, f))]
@@ -28,9 +45,13 @@ if __name__ == "__main__":
 
     # scacy
     os.chdir(path_spacy)
-
-    os.system('{} {}'.format(python, spacy_scriptname))
+    tokenize_all()
 
     # django
     os.chdir(path_django)
     os.system('{} {}'.format(python, django_scriptname))
+
+
+if __name__ == "__main__":
+    # update_all()
+    update_single('tagesschau')

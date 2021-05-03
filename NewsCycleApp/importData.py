@@ -1,4 +1,4 @@
-import os, django
+import os, django, datetime
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "NewsCycle.settings")
 django.setup()
 
@@ -7,7 +7,7 @@ from NewsCycleApp.models import Word, Medium, Wordcount
 
 relative_path = "../NewsCycleSpaCy/data.json"
 
-if __name__ == "__main__":
+def import_data():
     with open(os.path.abspath(relative_path)) as f:
         jsondata = json.load(f)
         for websiteIndex in jsondata:
@@ -29,4 +29,9 @@ if __name__ == "__main__":
                 print(wordcount.word.word)
                 wordcount.save()
 
+            medium.last_updated = datetime.date.today()
+            medium.save()
 
+
+if __name__ == "__main__":
+    import_data()

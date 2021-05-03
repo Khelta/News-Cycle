@@ -11,7 +11,7 @@ export class UpdateComponent{
 
   dataSource: Medium[]  = [];
   displayedColumns: string[] = ['medium', 'last_updated', 'update'];
-
+  today = new Date().toISOString().slice(0, 10);
 
   constructor(private pieSerice: PieService) { }
 
@@ -21,6 +21,10 @@ export class UpdateComponent{
 
   initData(): void{
     const promise = this.pieSerice.getMedia().then(data => this.dataSource = data);
+  }
+
+  update(elementName: any): void{
+    this.pieSerice.updateMedia(elementName).then(() => window.location.reload());
   }
 
 }

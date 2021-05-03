@@ -9,20 +9,10 @@ relative_path = "../NewsCycleScrapy/"
 
 # print([(token.lemma_, token.pos_) for token in test])
 
-if __name__ == "__main__":
-    onlyfiles = [f for f in listdir(relative_path) if isfile(join(relative_path, f))]
-    delete = []
-    for entry in onlyfiles:
-        if len(entry) > 4:
-            if entry[-4:] != "json":
-                delete.append(entry)
-        else:
-            delete.append(entry)
-    for entry in delete:
-        onlyfiles.remove(entry)
 
+def tokenize(files):
     data = {}
-    for newssite in onlyfiles:
+    for newssite in files:
         i = 0
         path = join(relative_path, newssite)
 
@@ -52,3 +42,28 @@ if __name__ == "__main__":
 
     with open('data.json', 'w') as outfile:
         json.dump(data, outfile)
+
+
+def tokenize_one(medium):
+    onlyfiles = [f for f in listdir(relative_path) if isfile(join(relative_path, f)) and f[:-5] == medium]
+    if len(onlyfiles) == 1:
+        tokenize(onlyfiles)
+
+
+def tokenize_all():
+    onlyfiles = [f for f in listdir(relative_path) if isfile(join(relative_path, f))]
+    delete = []
+    for entry in onlyfiles:
+        if len(entry) > 4:
+            if entry[-4:] != "json":
+                delete.append(entry)
+        else:
+            delete.append(entry)
+    for entry in delete:
+        onlyfiles.remove(entry)
+
+    tokenize(onlyfiles)
+
+
+if __name__ == "__main__":
+    tokenize_all()

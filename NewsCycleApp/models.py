@@ -3,7 +3,9 @@ from django.db import models
 
 class Medium(models.Model):
     name = models.CharField(unique=True, max_length=140)
+    display_name = models.TextField()
     description = models.TextField(null=True)
+    last_updated = models.DateField()
 
 
 class Word(models.Model):

@@ -36,4 +36,9 @@ export class PieService {
     const apiURL = this.baseUrl + 'media/';
     return this.http.get<Medium[]>(apiURL, {observe: 'body', responseType: 'json'}).toPromise();
   }
+
+  updateMedia(mediaName: string): Promise<{details: string}>{
+    const apiURL = this.baseUrl + 'media/update/' + mediaName + '/';
+    return this.http.get<{details: string}>(apiURL, {observe: 'body', responseType: 'json'}).toPromise();
+  }
 }

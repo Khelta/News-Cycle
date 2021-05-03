@@ -1,8 +1,18 @@
 table {
-  width: 200%;
-  border: green 3px solid;
+  /*border: green 3px solid;*/
 }
 
 .table-container{
   padding-top: 50px;
+  /*border: blue 3px solid;*/
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content:center;
 }

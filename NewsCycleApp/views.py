@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from update import update_single
 
 from django.db.models import Sum
 from django.http import JsonResponse
@@ -100,3 +101,25 @@ class Media(APIView):
         data = Medium.objects.all()
         data = MediaSerializer(data, many=True).data
         return Response(data=data, status=status.HTTP_200_OK)
+
+
+class UpdateMedia(APIView):
+    permission_classes = (permissions.AllowAny,)
+    valid_media_name = [x.name for x in Medium.objects.all()]
+
+    def get(self, request, medium_name):
+        if medium_name not in self.valid_media_name:
+            return Response(data={'details': '{} is no valid media name.'.format(medium_name)},
+                            status=status.HTTP_400_BAD_REQUEST)
+        else:
+            medium = Medium.objects.get(name=medium_name)
+            if medium.last_updated < datetime.today().date():
+                try:
+                    update_single(medium_name)
+                    return Response(data={'details': '{} updated successfully.'.format(medium_name)},
+                                    status=status.HTTP_200_OK)
+                except Exception as e:
+                    return Response(data={'details': e.args}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            else:
+                return Response(data={'details': '{} already got updated today.'. format(medium_name)},
+                                status=status.HTTP_200_OK)
