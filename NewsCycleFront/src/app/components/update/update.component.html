@@ -20,7 +20,13 @@
     <ng-container matColumnDef="update">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-raised-button color="primary" id="{{element.id}}" (click)="update(element.name)" [disabled]="element.last_updated >= today">Update</button>
+        <button mat-raised-button
+                color="primary"
+                id="{{element.id}}"
+                (click)="update(element.name)"
+                [disabled]="element.last_updated >= today"
+                matTooltip="Update kann morgen erneut durchgeführt werden."
+                [matTooltipDisabled]="element.last_updated < today">Update</button>
       </td>
     </ng-container>
 

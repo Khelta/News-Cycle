@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'News Cycle';
 
   @ViewChild('sidenav') sidenav: MatSidenav;
-  navList = [['Worthäufigkeit', './pie'], ['Graphen', './graph']];
+  navList = [['Worthäufigkeit', './pie'], ['Graphen', './graph'], ['Update', './update']];
 
 
 
