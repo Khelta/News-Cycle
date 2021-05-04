@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from NewsCycleApp.models import Wordcount, Medium, Word
-from NewsCycleApp.serializers import WordCountSerializer, MediaSerializer
+from NewsCycleApp.serializers import WordCountSerializer, MediaSerializer, WordSerializer
 from NewsCycleApp.viewHelper import transformQuerysetToGraphData
 
 
@@ -123,3 +123,12 @@ class UpdateMedia(APIView):
             else:
                 return Response(data={'details': '{} already got updated today.'. format(medium_name)},
                                 status=status.HTTP_200_OK)
+
+
+class WordsAll(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request):
+        words = Word.objects.all()
+        serialize = WordSerializer(words, many=True)
+        return Response(data=serialize.data, status=status.HTTP_200_OK)
