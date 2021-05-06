@@ -8,4 +8,5 @@ urlpatterns = [
     path('api/media/', views.Media.as_view()),
     path('api/media/update/<str:medium_name>/', views.UpdateMedia.as_view()),
     path('api/words/all/', views.WordsAll.as_view()),
+    path('api/words/string/<str:string>/<int:number>/', views.WordsByString.as_view()),
 ]

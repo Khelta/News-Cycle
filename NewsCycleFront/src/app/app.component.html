@@ -4,12 +4,14 @@
   </button>
   <span>News Cycle</span>
   <span class="custom-navbar-spacer"></span>
+
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="This does nothing (yet)">
     <mat-icon>favorite</mat-icon>
   </button>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" matTooltip="This does nothing (yet)">
     <mat-icon>share</mat-icon>
   </button>
+
 </mat-toolbar>
 
 
@@ -23,9 +25,12 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="sidenav-content">
+    <app-autocomplete></app-autocomplete>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
 
 
 

@@ -11,7 +11,7 @@ class MediumSerializer(serializers.ModelSerializer):
 class WordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Word
-        fields = ['word']
+        fields = ['word', 'type']
 
 
 class WordCountMediumSerializer(serializers.ModelSerializer):

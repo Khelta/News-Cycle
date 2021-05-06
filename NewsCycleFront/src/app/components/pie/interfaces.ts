@@ -12,3 +12,8 @@ export interface Medium {
 export interface WordType{
   type: string;
 }
+
+export interface Word{
+  word: string;
+  type: string;
+}

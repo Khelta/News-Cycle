@@ -132,3 +132,14 @@ class WordsAll(APIView):
         words = Word.objects.all()
         serialize = WordSerializer(words, many=True)
         return Response(data=serialize.data, status=status.HTTP_200_OK)
+
+
+class WordsByString(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, string, number):
+        words = Word.objects.filter(word__istartswith=string)[:number]
+        if len(words) == 0:
+            words = Word.objects.filter(word__icontains=string)[:number]
+        serialize = WordSerializer(words, many=True)
+        return Response(data=serialize.data, status=status.HTTP_200_OK)
